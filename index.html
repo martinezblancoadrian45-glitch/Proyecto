@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusGaming - Tu Portal Gamer Definitivo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        neon: {
+                            purple: '#9d4edd',
+                            violet: '#7b2cbf',
+                            cyan: '#00f5d4',
+                            pink: '#f72585',
+                            blue: '#4cc9f0',
+                            dark: '#0b091a',
+                            card: '#161233'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS Personalizado para Efectos Neón y Glow */
+        body {
+            background-color: #080612;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        .glow-purple {
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
+        }
+
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
+        }
+
+        .glow-pink {
+            box-shadow: 0 0 20px rgba(247, 37, 133, 0.4);
+        }
+
+        .text-glow-purple {
+            text-shadow: 0 0 10px rgba(157, 78, 221, 0.7);
+        }
+
+        .text-glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 245, 212, 0.7);
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 30px -10px rgba(157, 78, 221, 0.5);
+        }
+
+        /* Hero Gradient background */
+        .hero-bg {
+            background: linear-gradient(180deg, rgba(11, 9, 26, 0.6) 0%, rgba(8, 6, 18, 1) 100%),
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b091a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7b2cbf;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f5d4;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-neon-pink selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-neon-dark/80 backdrop-blur-md border-b border-neon-purple/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-neon-purple via-neon-pink to-neon-cyan flex items-center justify-center glow-purple group-hover:scale-110 transition-transform">
+                    <i class="ph-bold ph-game-controller text-2xl text-white"></i>
+                </div>
+                <span class="font-orbitron font-extrabold text-2xl tracking-wider text-white">
+                    NEXUS<span class="text-neon-cyan text-glow-cyan">GAMING</span>
+                </span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 font-rajdhani font-semibold text-lg">
+                <a href="#hero" class="text-gray-300 hover:text-neon-cyan transition-colors">Inicio</a>
+                <a href="#noticias" class="text-gray-300 hover:text-neon-cyan transition-colors">Noticias</a>
+                <a href="#juegos" class="text-gray-300 hover:text-neon-cyan transition-colors">Explorar Juegos</a>
+                <a href="#minijuego" class="text-gray-300 hover:text-neon-cyan transition-colors flex items-center gap-1 text-neon-pink animate-pulse">
+                    <i class="ph-fill ph-lightning"></i> Mini Game
+                </a>
+                <a href="#comunidad" class="text-gray-300 hover:text-neon-cyan transition-colors">Comunidad</a>
+            </nav>
+
+            <!-- Action Button & Mobile Menu Toggle -->
+            <div class="flex items-center gap-4">
+                <button onclick="scrollToSection('juegos')" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-neon-purple to-neon-pink text-white font-rajdhani font-bold text-lg hover:brightness-125 transition-all glow-purple">
+                    <i class="ph-bold ph-magnifying-glass"></i> Buscar Juegos
+                </button>
+                <button id="mobile-menu-btn" class="md:hidden text-3xl text-gray-300 hover:text-white focus:outline-none">
+                    <i class="ph-bold ph-list"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-neon-dark/95 border-b border-neon-purple/30 px-6 py-4 flex-col gap-4 font-rajdhani font-semibold text-xl">
+            <a href="#hero" class="mobile-link text-gray-300 hover:text-neon-cyan py-1">Inicio</a>
+            <a href="#noticias" class="mobile-link text-gray-300 hover:text-neon-cyan py-1">Noticias</a>
+            <a href="#juegos" class="mobile-link text-gray-300 hover:text-neon-cyan py-1">Explorar Juegos</a>
+            <a href="#minijuego" class="mobile-link text-neon-pink py-1 flex items-center gap-2">
+                <i class="ph-fill ph-lightning"></i> Mini Game Gamer
+            </a>
+            <a href="#comunidad" class="mobile-link text-gray-300 hover:text-neon-cyan py-1">Comunidad</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-bg min-h-screen pt-28 pb-16 flex items-center relative overflow-hidden">
+        <!-- Overlay decorative elements -->
+        <div class="absolute -top-20 -left-20 w-96 h-96 bg-neon-purple/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 -right-20 w-96 h-96 bg-neon-cyan/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 grid lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neon-purple/20 border border-neon-purple/40 text-neon-cyan text-sm font-semibold tracking-wider uppercase font-rajdhani">
+                    <span class="w-2 h-2 rounded-full bg-neon-cyan animate-ping"></span>
+                    Portal #1 de Videojuegos y Novedades
+                </div>
+                <h1 class="font-orbitron font-black text-4xl sm:text-6xl lg:text-7xl leading-tight text-white uppercase">
+                    Vive la <span class="bg-gradient-to-r from-neon-cyan via-neon-blue to-neon-pink bg-clip-text text-transparent text-glow-cyan">Experiencia</span> Gamer
+                </h1>
+                <p class="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                    Descubre las últimas noticias, valoraciones de la comunidad, lanzamientos más esperados de PC, Consolas y Mobile, todo en una sola plataforma interactiva.
+                </p>
+                
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                    <a href="#juegos" class="px-8 py-4 rounded-xl bg-gradient-to-r from-neon-purple to-neon-pink text-white font-rajdhani font-bold text-xl hover:scale-105 transition-all glow-purple flex items-center gap-3">
+                        <i class="ph-bold ph-caret-circle-right text-2xl"></i> Ver Top Juegos
+                    </a>
+                    <a href="#minijuego" class="px-8 py-4 rounded-xl border-2 border-neon-cyan text-neon-cyan hover:bg-neon-cyan/10 font-rajdhani font-bold text-xl hover:scale-105 transition-all glow-cyan flex items-center gap-3">
+                        <i class="ph-bold ph-game-controller text-2xl"></i> Jugar AHORA
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-4 pt-8 border-t border-gray-800/80 max-w-lg mx-auto lg:mx-0">
+                    <div>
+                        <div class="font-orbitron text-2xl sm:text-3xl font-bold text-white">500+</div>
+                        <div class="text-sm text-gray-400 font-rajdhani uppercase font-medium">Juegos Reseñados</div>
+                    </div>
+                    <div>
+                        <div class="font-orbitron text-2xl sm:text-3xl font-bold text-neon-cyan">98.4%</div>
+                        <div class="text-sm text-gray-400 font-rajdhani uppercase font-medium">Gamers Satisfechos</div>
+                    </div>
+                    <div>
+                        <div class="font-orbitron text-2xl sm:text-3xl font-bold text-neon-pink">24/7</div>
+                        <div class="text-sm text-gray-400 font-rajdhani uppercase font-medium">Noticias al Día</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Banner Card in Hero -->
+            <div class="lg:col-span-5">
+                <div class="relative group rounded-2xl overflow-hidden border border-neon-purple/30 bg-neon-card glow-purple p-2">
+                    <div class="relative h-80 sm:h-96 rounded-xl overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80" alt="Destacado" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6">
+                            <span class="bg-neon-pink text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider font-rajdhani">Juego del Mes</span>
+                            <h3 class="font-orbitron text-2xl font-bold text-white mt-2">Cyber Odyssey 2077</h3>
+                            <p class="text-sm text-gray-300 mt-1">Explora un mundo futurista neon en el RPG de acción definitivo.</p>
+                            <div class="mt-4 flex items-center justify-between">
+                                <span class="text-neon-cyan font-bold flex items-center gap-1 font-orbitron">
+                                    <i class="ph-fill ph-star text-yellow-400"></i> 9.8 / 10
+                                </span>
+                                <button onclick="openModal('cyber-odyssey')" class="text-xs font-bold font-rajdhani uppercase px-4 py-2 rounded bg-neon-purple text-white hover:bg-neon-violet transition-colors">
+                                    Ver Detalle
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN NOTICIAS DESTACADAS -->
+    <section id="noticias" class="py-20 relative bg-neon-dark/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <h2 class="font-orbitron text-3xl sm:text-4xl font-bold text-white flex items-center gap-3">
+                        <i class="ph-bold ph-newspaper text-neon-cyan"></i> Últimas <span class="text-neon-cyan">Novedades</span>
+                    </h2>
+                    <p class="text-gray-400 font-rajdhani text-lg mt-2">Entérate de los lanzamientos y rumores más calientes del mundo gamer</p>
+                </div>
+            </div>
+
+            <!-- News Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Noticia 1 -->
+                <article class="bg-neon-card rounded-2xl overflow-hidden border border-gray-800 card-hover group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80" alt="Noticia 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-neon-purple/90 text-white text-xs font-bold px-3 py-1 rounded-md uppercase font-rajdhani backdrop-blur-sm">Lanzamientos</span>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs text-neon-cyan font-rajdhani font-semibold">08 OCT, 2026</span>
+                        <h3 class="font-orbitron font-bold text-xl text-white mt-2 group-hover:text-neon-cyan transition-colors">
+                            El nuevo motor gráfico Next-Gen revoluciona la física en consolas
+                        </h3>
+                        <p class="text-gray-400 text-sm mt-3 line-clamp-2">
+                            Las primeras pruebas muestran hiperrealismo en texturas, simulación de fluidos e iluminación Ray Tracing en tiempo real.
+                        </p>
+                        <div class="mt-6 flex items-center justify-between border-t border-gray-800 pt-4">
+                            <span class="text-xs text-gray-500">Por: Admin Gamer</span>
+                            <span class="text-neon-pink text-sm font-bold font-rajdhani flex items-center gap-1">
+                                Leer más <i class="ph-bold ph-arrow-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Noticia 2 -->
+                <article class="bg-neon-card rounded-2xl overflow-hidden border border-gray-800 card-hover group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80" alt="Noticia 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-neon-pink/90 text-white text-xs font-bold px-3 py-1 rounded-md uppercase font-rajdhani backdrop-blur-sm">eSports</span>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs text-neon-cyan font-rajdhani font-semibold">07 OCT, 2026</span>
+                        <h3 class="font-orbitron font-bold text-xl text-white mt-2 group-hover:text-neon-pink transition-colors">
+                            Final Mundial de eSports bate récord con 5 millones de espectadores
+                        </h3>
+                        <p class="text-gray-400 text-sm mt-3 line-clamp-2">
+                            El torneo global concluye con una remontada histórica en la última ronda del campeonato mundial de tiradores arena.
+                        </p>
+                        <div class="mt-6 flex items-center justify-between border-t border-gray-800 pt-4">
+                            <span class="text-xs text-gray-500">Por: eSports Central</span>
+                            <span class="text-neon-pink text-sm font-bold font-rajdhani flex items-center gap-1">
+                                Leer más <i class="ph-bold ph-arrow-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Noticia 3 -->
+                <article class="bg-neon-card rounded-2xl overflow-hidden border border-gray-800 card-hover group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80" alt="Noticia 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-neon-cyan/90 text-black text-xs font-bold px-3 py-1 rounded-md uppercase font-rajdhani backdrop-blur-sm">Hardware</span>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs text-neon-cyan font-rajdhani font-semibold">05 OCT, 2026</span>
+                        <h3 class="font-orbitron font-bold text-xl text-white mt-2 group-hover:text-neon-cyan transition-colors">
+                            Anuncian la nueva generación de portátiles gaming VR-Ready
+                        </h3>
+                        <p class="text-gray-400 text-sm mt-3 line-clamp-2">
+                            Dispositivos ultra livianos con autonomía extendida y pantallas OLED de 240Hz para jugar donde quieras.
+                        </p>
+                        <div class="mt-6 flex items-center justify-between border-t border-gray-800 pt-4">
+                            <span class="text-xs text-gray-500">Por: TechGuru</span>
+                            <span class="text-neon-pink text-sm font-bold font-rajdhani flex items-center gap-1">
+                                Leer más <i class="ph-bold ph-arrow-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN EXPLORAR JUEGOS Y FILTROS -->
+    <section id="juegos" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="font-orbitron text-3xl sm:text-5xl font-bold text-white">
+                    Catálogo de <span class="text-neon-pink text-glow-purple">Videojuegos</span>
+                </h2>
+                <p class="text-gray-400 font-rajdhani text-xl mt-3">Filtra por tu plataforma o género favorito y encuentra tu próxima aventura.</p>
+            </div>
+
+            <!-- Controles de Búsqueda y Filtros -->
+            <div class="bg-neon-card p-6 rounded-2xl border border-neon-purple/20 mb-10 space-y-6">
+                <!-- Buscador de Texto -->
+                <div class="relative max-w-xl mx-auto">
+                    <i class="ph-bold ph-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-2xl text-gray-400"></i>
+                    <input type="text" id="search-input" placeholder="Buscar juego por título..." class="w-full bg-neon-dark border border-gray-700 rounded-xl py-3 pl-12 pr-4 text-white placeholder-gray-500 focus:outline-none focus:border-neon-cyan transition-colors">
+                </div>
+
+                <!-- Botones de Filtro por Plataforma -->
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                    <span class="text-sm font-rajdhani font-bold text-gray-400 mr-2 uppercase">Plataforma:</span>
+                    <button class="filter-btn active-filter px-4 py-2 rounded-lg font-rajdhani font-bold text-sm bg-neon-purple text-white transition-all" data-platform="all">Todas</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg font-rajdhani font-bold text-sm bg-neon-dark border border-gray-700 text-gray-300 hover:border-neon-cyan transition-all" data-platform="PC">PC</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg font-rajdhani font-bold text-sm bg-neon-dark border border-gray-700 text-gray-300 hover:border-neon-cyan transition-all" data-platform="PlayStation">PlayStation</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg font-rajdhani font-bold text-sm bg-neon-dark border border-gray-700 text-gray-300 hover:border-neon-cyan transition-all" data-platform="Xbox">Xbox</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg font-rajdhani font-bold text-sm bg-neon-dark border border-gray-700 text-gray-300 hover:border-neon-cyan transition-all" data-platform="Nintendo">Nintendo</button>
+                </div>
+
+                <!-- Botones de Filtro por Género -->
+                <div class="flex flex-wrap items-center justify-center gap-3 border-t border-gray-800 pt-4">
+                    <span class="text-sm font-rajdhani font-bold text-gray-400 mr-2 uppercase">Género:</span>
+                    <button class="genre-btn active-genre px-3 py-1.5 rounded-md font-rajdhani text-xs font-semibold bg-neon-pink text-white transition-all" data-genre="all">Todos los Géneros</button>
+                    <button class="genre-btn px-3 py-1.5 rounded-md font-rajdhani text-xs font-semibold bg-neon-dark border border-gray-800 text-gray-400 hover:text-white transition-all" data-genre="Acción">Acción</button>
+                    <button class="genre-btn px-3 py-1.5 rounded-md font-rajdhani text-xs font-semibold bg-neon-dark border border-gray-800 text-gray-400 hover:text-white transition-all" data-genre="RPG">RPG</button>
+                    <button class="genre-btn px-3 py-1.5 rounded-md font-rajdhani text-xs font-semibold bg-neon-dark border border-gray-800 text-gray-400 hover:text-white transition-all" data-genre="Estrategia">Estrategia</button>
+                    <button class="genre-btn px-3 py-1.5 rounded-md font-rajdhani text-xs font-semibold bg-neon-dark border border-gray-800 text-gray-400 hover:text-white transition-all" data-genre="Indie">Indie</button>
+                </div>
+            </div>
+
+            <!-- Grid de Juegos -->
+            <div id="games-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Se poblará dinámicamente con JavaScript -->
+            </div>
+
+            <!-- Mensaje si no hay resultados -->
+            <div id="no-results" class="hidden text-center py-12">
+                <i class="ph-bold ph-ghost text-6xl text-neon-pink mb-3"></i>
+                <h3 class="font-orbitron text-2xl text-white">No se encontraron juegos</h3>
+                <p class="text-gray-400 font-rajdhani">Intenta cambiar los parámetros de búsqueda o los filtros.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECCIÓN MINIJUEGO INTEGRADO "GAMER CLICKER QUEST" -->
+    <section id="minijuego" class="py-20 bg-gradient-to-b from-neon-dark via-neon-card to-neon-dark border-y border-neon-purple/30 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neon-pink/20 text-neon-pink font-bold font-rajdhani mb-4">
+                <i class="ph-fill ph-game-controller text-xl"></i> MINIJUEGO INTERACTIVO
+            </div>
+            
+            <h2 class="font-orbitron text-3xl sm:text-5xl font-extrabold text-white">
+                Gamer Clicker <span class="text-neon-cyan text-glow-cyan">Quest</span>
+            </h2>
+            <p class="text-gray-300 font-rajdhani text-lg mt-2 mb-8">
+                ¡Haz click en el control gamer para ganar XP, sube de nivel y desbloquea logros!
+            </p>
+
+            <!-- Card del Juego -->
+            <div class="bg-neon-dark/90 p-8 rounded-3xl border-2 border-neon-cyan/50 glow-cyan max-w-2xl mx-auto relative overflow-hidden">
+                
+                <!-- Display de Puntuación y Nivel -->
+                <div class="grid grid-cols-3 gap-4 mb-8 text-center">
+                    <div class="bg-neon-card p-4 rounded-xl border border-gray-800">
+                        <div class="text-xs font-rajdhani font-bold text-gray-400 uppercase">XP Total</div>
+                        <div id="game-score" class="font-orbitron text-2xl sm:text-3xl font-extrabold text-neon-cyan">0</div>
+                    </div>
+                    <div class="bg-neon-card p-4 rounded-xl border border-gray-800">
+                        <div class="text-xs font-rajdhani font-bold text-gray-400 uppercase">Nivel Gamer</div>
+                        <div id="game-level" class="font-orbitron text-2xl sm:text-3xl font-extrabold text-neon-pink">1</div>
+                    </div>
+                    <div class="bg-neon-card p-4 rounded-xl border border-gray-800">
+                        <div class="text-xs font-rajdhani font-bold text-gray-400 uppercase">Multiplicador</div>
+                        <div id="game-multiplier" class="font-orbitron text-2xl sm:text-3xl font-extrabold text-neon-purple">x1</div>
+                    </div>
+                </div>
+
+                <!-- Botón Principal Clicker -->
+                <div class="py-6 flex justify-center">
+                    <button id="clicker-btn" class="w-36 h-36 rounded-full bg-gradient-to-tr from-neon-purple via-neon-pink to-neon-cyan p-1 hover:scale-110 active:scale-95 transition-all shadow-2xl focus:outline-none cursor-pointer">
+                        <div class="w-full h-full rounded-full bg-neon-dark flex items-center justify-center">
+                            <i class="ph-fill ph-game-controller text-6xl text-neon-cyan animate-pulse"></i>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Barra de Progreso al siguiente Nivel -->
+                <div class="mt-6 space-y-2">
+                    <div class="flex justify-between text-xs font-rajdhani font-bold">
+                        <span class="text-gray-400">Progreso a Nivel <span id="next-level-num">2</span></span>
+                        <span id="level-progress-text" class="text-neon-cyan">0 / 50 XP</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
+                        <div id="level-progress-bar" class="bg-gradient-to-r from-neon-purple to-neon-cyan h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Mejoras para Comprar -->
+                <div class="mt-8 pt-6 border-t border-gray-800 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button id="buy-upgrade-1" class="p-3 bg-neon-card hover:bg-neon-purple/20 border border-neon-purple/40 rounded-xl text-left transition-colors flex items-center justify-between">
+                        <div>
+                            <div class="font-orbitron text-sm text-white font-bold">Teclado Mecánico</div>
+                            <div class="text-xs text-gray-400">+1 XP por Click</div>
+                        </div>
+                        <span class="font-orbitron text-xs text-neon-cyan font-bold bg-neon-dark px-3 py-1.5 rounded-lg border border-neon-cyan/30">
+                            Costo: <span id="upgrade-1-cost">20</span> XP
+                        </span>
+                    </button>
+
+                    <button id="buy-upgrade-2" class="p-3 bg-neon-card hover:bg-neon-pink/20 border border-neon-pink/40 rounded-xl text-left transition-colors flex items-center justify-between">
+                        <div>
+                            <div class="font-orbitron text-sm text-white font-bold">Silla Gamer Ergónoma</div>
+                            <div class="text-xs text-gray-400">+5 XP por Click</div>
+                        </div>
+                        <span class="font-orbitron text-xs text-neon-pink font-bold bg-neon-dark px-3 py-1.5 rounded-lg border border-neon-pink/30">
+                            Costo: <span id="upgrade-2-cost">100</span> XP
+                        </span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN COMUNIDAD Y RESEÑAS -->
+    <section id="comunidad" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="font-orbitron text-3xl sm:text-5xl font-bold text-white">
+                    Comunidad <span class="text-neon-cyan text-glow-cyan">Gamer</span>
+                </h2>
+                <p class="text-gray-400 font-rajdhani text-xl mt-3">Déjanos tu opinión, califica los últimos lanzamientos e interactúa con otros jugadores.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Formulario para agregar Comentario -->
+                <div class="lg:col-span-5 bg-neon-card p-8 rounded-2xl border border-neon-purple/30 h-fit">
+                    <h3 class="font-orbitron text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="ph-bold ph-chat-teardrop-text text-neon-pink"></i> Publicar Reseña
+                    </h3>
+                    
+                    <form id="comment-form" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-rajdhani font-bold text-gray-300 mb-1">Nombre Gamer / User ID</label>
+                            <input type="text" id="comment-user" required placeholder="Ej. CyberKnight_99" class="w-full bg-neon-dark border border-gray-700 rounded-xl p-3 text-white focus:outline-none focus:border-neon-cyan transition-colors">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-rajdhani font-bold text-gray-300 mb-1">Juego de Referencia</label>
+                            <select id="comment-game" class="w-full bg-neon-dark border border-gray-700 rounded-xl p-3 text-white focus:outline-none focus:border-neon-cyan transition-colors">
+                                <option value="Cyber Odyssey 2077">Cyber Odyssey 2077</option>
+                                <option value="Elden Realm: Shadow">Elden Realm: Shadow</option>
+                                <option value="Starlight Horizon">Starlight Horizon</option>
+                                <option value="Pixel Tactics Online">Pixel Tactics Online</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-rajdhani font-bold text-gray-300 mb-1">Calificación</label>
+                            <div class="flex items-center gap-2 text-2xl text-yellow-400 cursor-pointer" id="rating-stars">
+                                <i class="ph-fill ph-star star-btn" data-value="1"></i>
+                                <i class="ph-fill ph-star star-btn" data-value="2"></i>
+                                <i class="ph-fill ph-star star-btn" data-value="3"></i>
+                                <i class="ph-fill ph-star star-btn" data-value="4"></i>
+                                <i class="ph-fill ph-star star-btn" data-value="5"></i>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-rajdhani font-bold text-gray-300 mb-1">Tu Comentario</label>
+                            <textarea id="comment-text" required rows="4" placeholder="¿Qué te pareció la jugabilidad, gráficos y soundtrack?" class="w-full bg-neon-dark border border-gray-700 rounded-xl p-3 text-white focus:outline-none focus:border-neon-cyan transition-colors resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-neon-purple to-neon-pink text-white font-rajdhani font-bold text-lg hover:brightness-125 transition-all glow-purple">
+                            Enviar Reseña
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Lista de Comentarios y Votaciones -->
+                <div class="lg:col-span-7 space-y-6" id="comments-list">
+                    <!-- Se carga dinámicamente -->
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODAL DETALLE DE JUEGO -->
+    <div id="game-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="bg-neon-card border border-neon-purple/40 w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-neon-dark/80 text-white hover:text-neon-pink flex items-center justify-center text-2xl transition-colors">
+                <i class="ph-bold ph-x"></i>
+            </button>
+
+            <div id="modal-content">
+                <!-- Contenido inyectado por JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-neon-dark border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-neon-purple flex items-center justify-center text-white">
+                        <i class="ph-bold ph-game-controller text-xl"></i>
+                    </div>
+                    <span class="font-orbitron font-bold text-xl text-white">NEXUS<span class="text-neon-cyan">GAMING</span></span>
+                </div>
+
+                <div class="text-gray-400 font-rajdhani text-center md:text-left text-sm">
+                    © 2026 NexusGaming. Todos los derechos reservados. Diseñado para Gamers apasionados.
+                </div>
+
+                <div class="flex items-center gap-4 text-2xl text-gray-400">
+                    <a href="#" class="hover:text-neon-cyan transition-colors"><i class="ph-bold ph-discord-logo"></i></a>
+                    <a href="#" class="hover:text-neon-pink transition-colors"><i class="ph-bold ph-twitch-logo"></i></a>
+                    <a href="#" class="hover:text-neon-purple transition-colors"><i class="ph-bold ph-youtube-logo"></i></a>
+                    <a href="#" class="hover:text-neon-cyan transition-colors"><i class="ph-bold ph-twitter-logo"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /* ==================== BASE DE DATOS DE JUEGOS ==================== */
+        const gamesData = [
+            {
+                id: 'cyber-odyssey',
+                title: 'Cyber Odyssey 2077',
+                platform: 'PC',
+                genre: 'RPG',
+                rating: 9.8,
+                image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80',
+                description: 'Subérgete en una metrópolis distópica llena de neón, implantes cibernéticos y misiones de facción.',
+                details: 'Una experiencia masiva en mundo abierto con gráficos de última generación, ramificaciones de historia y combate visceral.'
+            },
+            {
+                id: 'elden-realm',
+                title: 'Elden Realm: Shadow',
+                platform: 'PlayStation',
+                genre: 'Acción',
+                rating: 9.6,
+                image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80',
+                description: 'Enfréntate a jefes colosales en una tierra mística sumergida en la penumbra eterna.',
+                details: 'Combate desafiante, diseño de niveles interconectados y una narrativa profunda para verdaderos maestros del control.'
+            },
+            {
+                id: 'starlight-horizon',
+                title: 'Starlight Horizon',
+                platform: 'Xbox',
+                genre: 'Estrategia',
+                rating: 9.1,
+                image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
+                description: 'Construye y comanda tu flota espacial para dominar galaxias inexploradas.',
+                details: 'Simulación galáctica 4X con batallas en tiempo real, диплоmacia interplanetaria y gestión de recursos.'
+            },
+            {
+                id: 'pixel-tactics',
+                title: 'Pixel Tactics Online',
+                platform: 'Nintendo',
+                genre: 'Indie',
+                rating: 8.9,
+                image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80',
+                description: 'Un RPG táctico por turnos con estética retro de 16 bits y modo multijugador cooperativo.',
+                details: 'Crea tu equipo de héroes, combina habilidades elementales y completa mazmorras generadas por procedimientos.'
+            },
+            {
+                id: 'speed-demons',
+                title: 'Speed Demons: Nitro',
+                platform: 'PC',
+                genre: 'Acción',
+                rating: 9.3,
+                image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80',
+                description: 'Carreras clandestinas de alta velocidad en calles futuristas e iluminadas por neón.',
+                details: 'Personalización extrema de vehículos, física realista de derrapes y bandas sonoras synthwave envolventes.'
+            },
+            {
+                id: 'mobile-legends-war',
+                title: 'Mobile Strike Arena',
+                platform: 'Mobile',
+                genre: 'Acción',
+                rating: 8.7,
+                image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80',
+                description: 'Shooter táctico 5v5 optimizado con controles táctiles de máxima precisión.',
+                details: 'Partidas rápidas de 10 minutos, múltiples héroes con habilidades únicas y torneos globales competitivos.'
+            }
+        ];
+
+        /* ==================== ESTADO INICIAL DE COMUNIDAD ==================== */
+        let commentsData = [
+            {
+                id: 1,
+                user: 'Viper_Gamer',
+                game: 'Cyber Odyssey 2077',
+                rating: 5,
+                text: '¡Los gráficos neón y la historia son simplemente increíbles! Totalmente recomendado.',
+                likes: 12
+            },
+            {
+                id: 2,
+                user: 'ShadowNinja',
+                game: 'Elden Realm: Shadow',
+                rating: 5,
+                text: 'Extremadamente difícil pero súper gratificante. Cada jefe superado se siente como una victoria real.',
+                likes: 8
+            }
+        ];
+
+        /* ==================== ESTADO DEL MINIJUEGO ==================== */
+        let gameState = {
+            score: 0,
+            level: 1,
+            multiplier: 1,
+            clickPower: 1,
+            nextLevelScore: 50,
+            upgrade1Cost: 20,
+            upgrade2Cost: 100
+        };
+
+        let currentSelectedRating = 5;
+
+        /* ==================== RENDERIZADO DE JUEGOS ==================== */
+        function renderGames(games) {
+            const grid = document.getElementById('games-grid');
+            const noResults = document.getElementById('no-results');
+
+            grid.innerHTML = '';
+
+            if (games.length === 0) {
+                noResults.classList.remove('hidden');
+                return;
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            games.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'bg-neon-card rounded-2xl overflow-hidden border border-gray-800 card-hover flex flex-col justify-between';
+                card.innerHTML = `
+                    <div>
+                        <div class="relative h-52 overflow-hidden">
+                            <img src="${game.image}" alt="${game.title}" class="w-full h-full object-cover">
+                            <div class="absolute top-3 left-3 bg-neon-dark/90 text-neon-cyan px-3 py-1 rounded-full text-xs font-bold font-rajdhani border border-neon-cyan/30">
+                                ${game.platform}
+                            </div>
+                            <div class="absolute top-3 right-3 bg-neon-pink/90 text-white px-3 py-1 rounded-full text-xs font-bold font-rajdhani">
+                                ${game.genre}
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="font-orbitron font-bold text-xl text-white">${game.title}</h3>
+                                <span class="flex items-center gap-1 font-orbitron font-bold text-yellow-400 text-sm">
+                                    <i class="ph-fill ph-star"></i> ${game.rating}
+                                </span>
+                            </div>
+                            <p class="text-gray-400 text-sm font-normal line-clamp-2">${game.description}</p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6 pt-2">
+                        <button onclick="openModal('${game.id}')" class="w-full py-2.5 rounded-xl border border-neon-purple text-neon-purple hover:bg-neon-purple hover:text-white transition-all font-rajdhani font-bold text-sm uppercase">
+                            Ver Detalles & Rating
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* ==================== FILTRADO Y BÚSQUEDA ==================== */
+        let activePlatform = 'all';
+        let activeGenre = 'all';
+
+        function filterGames() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+
+            const filtered = gamesData.filter(game => {
+                const matchesPlatform = activePlatform === 'all' || game.platform === activePlatform;
+                const matchesGenre = activeGenre === 'all' || game.genre === activeGenre;
+                const matchesSearch = game.title.toLowerCase().includes(searchTerm) || game.description.toLowerCase().includes(searchTerm);
+
+                return matchesPlatform && matchesGenre && matchesSearch;
+            });
+
+            renderGames(filtered);
+        }
+
+        /* Event Listeners Filtros Plataforma */
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('active-filter', 'bg-neon-purple', 'text-white');
+                    b.classList.add('bg-neon-dark', 'text-gray-300');
+                });
+                e.target.classList.add('active-filter', 'bg-neon-purple', 'text-white');
+                e.target.classList.remove('bg-neon-dark', 'text-gray-300');
+
+                activePlatform = e.target.getAttribute('data-platform');
+                filterGames();
+            });
+        });
+
+        /* Event Listeners Filtros Género */
+        document.querySelectorAll('.genre-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.genre-btn').forEach(b => {
+                    b.classList.remove('active-genre', 'bg-neon-pink', 'text-white');
+                    b.classList.add('bg-neon-dark', 'text-gray-400');
+                });
+                e.target.classList.add('active-genre', 'bg-neon-pink', 'text-white');
+                e.target.classList.remove('bg-neon-dark', 'text-gray-400');
+
+                activeGenre = e.target.getAttribute('data-genre');
+                filterGames();
+            });
+        });
+
+        document.getElementById('search-input').addEventListener('input', filterGames);
+
+        /* ==================== MODAL DE DETALLES ==================== */
+        function openModal(gameId) {
+            const game = gamesData.find(g => g.id === gameId) || gamesData[0];
+            const modalContent = document.getElementById('modal-content');
+
+            modalContent.innerHTML = `
+                <div class="relative h-64 sm:h-80">
+                    <img src="${game.image}" alt="${game.title}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-neon-card via-neon-card/40 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-neon-purple text-white px-3 py-1 rounded-md text-xs font-bold font-rajdhani uppercase">${game.platform}</span>
+                            <span class="bg-neon-pink text-white px-3 py-1 rounded-md text-xs font-bold font-rajdhani uppercase">${game.genre}</span>
+                        </div>
+                        <h2 class="font-orbitron text-3xl font-bold text-white">${game.title}</h2>
+                    </div>
+                </div>
+                <div class="p-6 sm:p-8 space-y-6">
+                    <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                        <div>
+                            <span class="text-xs text-gray-400 font-rajdhani uppercase">Calificación Nexus</span>
+                            <div class="font-orbitron text-2xl font-bold text-yellow-400 flex items-center gap-2">
+                                <i class="ph-fill ph-star"></i> ${game.rating} / 10
+                            </div>
+                        </div>
+                        <button onclick="scrollToSection('comunidad'); closeModal();" class="px-5 py-2.5 rounded-xl bg-neon-cyan text-black font-rajdhani font-bold hover:brightness-110 transition-all">
+                            Escribir Reseña
+                        </button>
+                    </div>
+
+                    <div>
+                        <h4 class="font-orbitron font-bold text-lg text-white mb-2">Descripción General</h4>
+                        <p class="text-gray-300 leading-relaxed">${game.description}</p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-orbitron font-bold text-lg text-white mb-2">Detalles Destacados</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">${game.details}</p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('game-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('game-modal').classList.add('hidden');
+        }
+
+        /* ==================== MINIJUEGO GAMER CLICKER ==================== */
+        const clickerBtn = document.getElementById('clicker-btn');
+        
+        clickerBtn.addEventListener('click', () => {
+            gameState.score += gameState.clickPower * gameState.multiplier;
+            checkLevelUp();
+            updateGameUI();
+        });
+
+        function checkLevelUp() {
+            if (gameState.score >= gameState.nextLevelScore) {
+                gameState.level++;
+                gameState.multiplier += 0.5;
+                gameState.nextLevelScore = Math.floor(gameState.nextLevelScore * 2.5);
+            }
+        }
+
+        function updateGameUI() {
+            document.getElementById('game-score').textContent = gameState.score;
+            document.getElementById('game-level').textContent = gameState.level;
+            document.getElementById('game-multiplier').textContent = `x${gameState.multiplier}`;
+            
+            const prevLevelScore = gameState.level === 1 ? 0 : Math.floor(gameState.nextLevelScore / 2.5);
+            const progress = Math.min(100, Math.floor(((gameState.score - prevLevelScore) / (gameState.nextLevelScore - prevLevelScore)) * 100));
+            
+            document.getElementById('level-progress-bar').style.width = `${Math.max(0, progress)}%`;
+            document.getElementById('level-progress-text').textContent = `${gameState.score} / ${gameState.nextLevelScore} XP`;
+            document.getElementById('next-level-num').textContent = gameState.level + 1;
+
+            document.getElementById('upgrade-1-cost').textContent = gameState.upgrade1Cost;
+            document.getElementById('upgrade-2-cost').textContent = gameState.upgrade2Cost;
+        }
+
+        document.getElementById('buy-upgrade-1').addEventListener('click', () => {
+            if (gameState.score >= gameState.upgrade1Cost) {
+                gameState.score -= gameState.upgrade1Cost;
+                gameState.clickPower += 1;
+                gameState.upgrade1Cost = Math.floor(gameState.upgrade1Cost * 1.8);
+                updateGameUI();
+            }
+        });
+
+        document.getElementById('buy-upgrade-2').addEventListener('click', () => {
+            if (gameState.score >= gameState.upgrade2Cost) {
+                gameState.score -= gameState.upgrade2Cost;
+                gameState.clickPower += 5;
+                gameState.upgrade2Cost = Math.floor(gameState.upgrade2Cost * 2.2);
+                updateGameUI();
+            }
+        });
+
+        /* ==================== SECCIÓN COMUNIDAD Y COMENTARIOS ==================== */
+        function renderComments() {
+            const list = document.getElementById('comments-list');
+            list.innerHTML = '';
+
+            commentsData.forEach(c => {
+                const card = document.createElement('div');
+                card.className = 'bg-neon-card p-6 rounded-2xl border border-gray-800 space-y-4';
+                
+                let starsHTML = '';
+                for (let i = 1; i <= 5; i++) {
+                    starsHTML += `<i class="ph-fill ph-star ${i <= c.rating ? 'text-yellow-400' : 'text-gray-600'}"></i>`;
+                }
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-neon-purple/30 border border-neon-purple flex items-center justify-center font-orbitron font-bold text-neon-cyan">
+                                ${c.user.charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                                <h4 class="font-orbitron font-bold text-white text-sm">${c.user}</h4>
+                                <span class="text-xs text-neon-pink font-rajdhani font-semibold">Juego: ${c.game}</span>
+                            </div>
+                        </div>
+                        <div class="flex text-sm">${starsHTML}</div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">${c.text}</p>
+                    <div class="flex items-center justify-between border-t border-gray-800 pt-3 text-xs">
+                        <span class="text-gray-500 font-rajdhani">Publicado recientemente</span>
+                        <button onclick="likeComment(${c.id})" class="flex items-center gap-1.5 text-gray-400 hover:text-neon-cyan transition-colors">
+                            <i class="ph-bold ph-thumbs-up"></i>
+                            <span>${c.likes}</span>
+                        </button>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function likeComment(id) {
+            const comment = commentsData.find(c => c.id === id);
+            if (comment) {
+                comment.likes++;
+                renderComments();
+            }
+        }
+
+        /* Sistema de Calificación con Estrellas */
+        document.querySelectorAll('.star-btn').forEach(star => {
+            star.addEventListener('click', (e) => {
+                const val = parseInt(e.target.getAttribute('data-value'));
+                currentSelectedRating = val;
+                
+                document.querySelectorAll('.star-btn').forEach((s, idx) => {
+                    if (idx < val) {
+                        s.classList.remove('text-gray-600');
+                        s.classList.add('text-yellow-400');
+                    } else {
+                        s.classList.remove('text-yellow-400');
+                        s.classList.add('text-gray-600');
+                    }
+                });
+            });
+        });
+
+        /* Enviar Formulario */
+        document.getElementById('comment-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('comment-user').value.trim();
+            const game = document.getElementById('comment-game').value;
+            const text = document.getElementById('comment-text').value.trim();
+
+            if (user && text) {
+                commentsData.unshift({
+                    id: Date.now(),
+                    user,
+                    game,
+                    rating: currentSelectedRating,
+                    text,
+                    likes: 0
+                });
+
+                renderComments();
+                document.getElementById('comment-form').reset();
+                currentSelectedRating = 5;
+            }
+        });
+
+        /* NAVEGACIÓN SUAVE Y MENÚ MÓVIL */
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            });
+        });
+
+        /* INICIALIZACIÓN */
+        window.onload = function() {
+            renderGames(gamesData);
+            renderComments();
+            updateGameUI();
+        }
+    </script>
+</body>
+</html>
